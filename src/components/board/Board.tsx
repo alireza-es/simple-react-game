@@ -9,8 +9,16 @@ function Board(props: BoardProps & React.HTMLAttributes<HTMLDivElement>) {
   const status = 'Next player: X';
   const [state, setState] = React.useState<GamePlay>({squares: Array(9).fill(null)});
 
+  function handleClick(i: number) {
+    const squares = state.squares.slice();
+    squares[i] = 'X';
+    setState({
+      squares: squares
+    });
+  }
+
   const renderSquare = (i: number)=> {
-    return <Square value={state.squares[i]}/>;
+    return <Square value={state.squares[i]} onClick={()=> handleClick(i)}/>;
   }
 
   return (

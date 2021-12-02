@@ -3,13 +3,12 @@ import SquareProps from "./SquareProps";
 import "./SquareStyle.scss";
 
 function Square(props: SquareProps & React.HTMLAttributes<HTMLDivElement>) {
-  const [state, setState] = React.useState<SquareProps>(props);
-  
-  function squareClicked() {
-    setState({ value: 'X' });
+ 
+  function handleClicked() {
+    props.onClick();
   }
   return (
-    <button className="square" onClick={squareClicked}>{state.value}</button>
+    <button className="square" onClick={handleClicked}>{props.value}</button>
   );
 }
 
