@@ -1,12 +1,17 @@
-.board{
-  display: flex;
-}
-.board-row:after {
-  clear: both;
-  content: "";
-  display: table;
-}
+.board {
+  color: black;
 
-.status {
-  margin-bottom: 10px;
+  &-row:after {
+    clear: both;
+    content: "";
+    display: table;
+  }
+
+  &-status {
+    margin-bottom: 10px;
+    span {
+      color: blueviolet;
+      font-size: 1.2em;
+    }
+  }
 }

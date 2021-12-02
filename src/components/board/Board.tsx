@@ -6,14 +6,19 @@ import './BoardStyle.scss'
 
 function Board(props: BoardProps & React.HTMLAttributes<HTMLDivElement>) {
   
-  const status = 'Next player: X';
-  const [state, setState] = React.useState<GamePlay>({squares: Array(9).fill(null)});
+  const [state, setState] = React.useState<GamePlay>({
+    squares: Array(9).fill(null),
+    xIsTheNextPlayer: true
+  });
+
+  const status = state.xIsTheNextPlayer ? 'X' : 'O';
 
   function handleClick(i: number) {
     const squares = state.squares.slice();
-    squares[i] = 'X';
+    squares[i] = state.xIsTheNextPlayer ? 'X': 'O';
     setState({
-      squares: squares
+      squares: squares,
+      xIsTheNextPlayer: !state.xIsTheNextPlayer
     });
   }
 
@@ -22,8 +27,8 @@ function Board(props: BoardProps & React.HTMLAttributes<HTMLDivElement>) {
   }
 
   return (
-      <div>
-        <div className="status">{status}</div>
+      <div className="board">
+        <div className="board-status">Next player: <span>{status}</span></div>
         <div className="board-row">
           {renderSquare(0)}
           {renderSquare(1)}
