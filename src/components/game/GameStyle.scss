@@ -1,12 +1,21 @@
-ol, ul {
-  padding-left: 30px;
-}
-
 .game {
   display: flex;
   flex-direction: row;
-}
 
-.game-info {
-  margin-left: 20px;
+  &-info {
+    margin-left: 20px;
+  }
+
+  &-actions {
+    margin-right: 20px;
+    button {
+      padding: 5px;
+      background-color: brown;
+    }
+  }
+
+  ol,
+  ul {
+    padding-left: 30px;
+  }
 }
