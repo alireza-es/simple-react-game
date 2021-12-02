@@ -1,17 +1,28 @@
 .game {
   display: flex;
   flex-direction: row;
+  border: 1px solid #000;
+  border-radius: 5px;
 
   &-info {
-    margin-left: 20px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    padding: 0.5rem;
+    background-color: #fafafa;
+    border-right: 1px solid #eaeaea;
   }
 
+  &-board {
+    display: flex;
+    flex-direction: column;
+    flex: 2;
+    padding: 0.5rem;
+    background-color: #fafafa;
+  }
+  
   &-actions {
     margin-right: 20px;
-    button {
-      padding: 5px;
-      background-color: brown;
-    }
   }
 
   ol,

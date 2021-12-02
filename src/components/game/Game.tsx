@@ -1,11 +1,13 @@
 import React from "react";
 import GamePlay from "../../models/GamePlay";
 import Board from "../board/Board";
+import './GameStyle.scss';
 
 function Game() {
   const initState = {
     history: [{ squares: Array(9).fill(null) }],
     xIsTheNextPlayer: true,
+    stepNumber: 0,
   };
 
   const [state, setState] = React.useState<GamePlay>(initState);
@@ -34,8 +36,8 @@ function Game() {
     return null;
   }
 
-  const handleClick = (i: number):void => {
-    const history = state.history;
+  const handleClick = (i: number): void => {
+    const history = state.history.slice(0, state.stepNumber + 1);
     const current = history[history.length - 1];
     const squares = current.squares.slice();
     if (calculateWinner(squares) || squares[i]) {
@@ -47,16 +49,34 @@ function Game() {
         squares: squares
       }]),
       xIsTheNextPlayer: !state.xIsTheNextPlayer,
+      stepNumber: history.length,
     });
   };
 
+  const jumpTo = (step: number)=> {
+    setState({
+      stepNumber: step,
+      xIsTheNextPlayer: (step % 2) === 0,
+      history: state.history,
+    });
+  }
   const history = state.history;
-  const current = history[history.length - 1];
+  const current = history[state.stepNumber];
   const winner = calculateWinner(current.squares);
   let statusText = <>Next player: <span>{state.xIsTheNextPlayer ? 'X' : 'O'}</span></>;
   if(winner)
     statusText = <>The winner is: <span>{winner}</span><br/>👊👏🔥</>;
 
+  const moves = history.map((step, move) => {
+    const desc = move ?
+      'Go to move #' + move :
+      'Go to game start';
+    return (
+      <li key={move}>
+        <button onClick={() => jumpTo(move)}>{desc}</button>
+      </li>
+      );
+  });
 
   return (
     <div className="game">
@@ -66,10 +86,7 @@ function Game() {
       </div>
       <div className="game-info">
         <div>{statusText}</div>
-        <ol>{/* TODO */}</ol>
-      </div>
-      <div className="game-actions">
-        <button type="button" onClick={() => setState(initState)}>Reset</button>
+        <ol>{moves}</ol>
       </div>
     </div>
   );
